@@ -19,4 +19,4 @@ use App\Http\Controllers\ProductControllerAPI;
 //     return $request->user();
 // });
 
-Route::get('/shoes', [ProductControllerAPI::class, 'index'])->name('shoes.index');
+Route::get('/shoes', [ProductControllerAPI::class, 'index']);

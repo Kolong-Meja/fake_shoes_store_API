@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Resources\ProductResource;
 
 class ProductControllerAPI extends Controller
 {
@@ -13,7 +15,12 @@ class ProductControllerAPI extends Controller
      */
     public function index()
     {
-        
+        $products = Product::latest()->paginate(10)->get();
+        $response = [
+            'message' => 'Product Data',
+            'data' => $product,
+        ];
+        return response()->json($response, HttpFoundationResponse::HTTP_OK);
     }
 
     /**
