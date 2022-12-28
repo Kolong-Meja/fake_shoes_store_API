@@ -16,45 +16,65 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {   
-        $admin = User::select('id', 'role')->where('role', 'admin')->first();
+        $admin = User::select('id', 'role')->where('role', 'admin')->orWhere('id', 1)->firstOrFail();
 
         Product::create([
             'user_id' => $admin->id,
-            'nama' => 'Adidas GX350',
-            'harga' => 325000,
-            'stok' => 100,
+            'title' => 'Adidas GX350',
+            'meta_title' => 'Sepatu Adidas GX350',
+            'slug' => 'sepatu-olahraga-adidas-gx350',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elementum erat sit amet ipsum venenatis, ac malesuada ipsum vulputate. Donec luctus laoreet ultricies. Aliquam molestie dictum commodo. In vehicula augue vel diam mattis molestie. Donec sed nibh a lectus consequat venenatis. Aliquam pellentesque libero eget leo posuere consectetur. Nulla imperdiet.',
+            'price' => 325000.00,
+            'weight' => 1.00,
+            'stock' => 100,
             'isReadyPublish' => 'ready'
         ]);
 
         Product::create([
             'user_id' => $admin->id,
-            'nama' => 'Adidas GX360',
-            'harga' => 355000,
-            'stok' => 0,
-            'isReadyPublish' => 'not ready'
-        ]);
-
-        Product::create([
-            'user_id' => $admin->id,
-            'nama' => 'Adidas GX370',
-            'harga' => 385000,
-            'stok' => 100,
+            'title' => 'Adidas GX360',
+            'meta_title' => 'Sepatu Adidas GX360',
+            'slug' => 'sepatu-olahraga-adidas-gx360',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elementum erat sit amet ipsum venenatis, ac malesuada ipsum vulputate. Donec luctus laoreet ultricies. Aliquam molestie dictum commodo. In vehicula augue vel diam mattis molestie. Donec sed nibh a lectus consequat venenatis. Aliquam pellentesque libero eget leo posuere consectetur. Nulla imperdiet.',
+            'price' => 355000.00,
+            'weight' => 1.20,
+            'stock' => 50,
             'isReadyPublish' => 'ready'
         ]);
 
         Product::create([
             'user_id' => $admin->id,
-            'nama' => 'Adidas GX380',
-            'harga' => 425000,
-            'stok' => 50,
+            'title' => 'Adidas GX370',
+            'meta_title' => 'Sepatu Adidas GX370',
+            'slug' => 'sepatu-olahraga-adidas-gx370',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elementum erat sit amet ipsum venenatis, ac malesuada ipsum vulputate. Donec luctus laoreet ultricies. Aliquam molestie dictum commodo. In vehicula augue vel diam mattis molestie. Donec sed nibh a lectus consequat venenatis. Aliquam pellentesque libero eget leo posuere consectetur. Nulla imperdiet.',
+            'price' => 375000.00,
+            'weight' => 1.10,
+            'stock' => 50,
             'isReadyPublish' => 'ready'
         ]);
 
         Product::create([
             'user_id' => $admin->id,
-            'nama' => 'Adidas GX390',
-            'harga' => 455000,
-            'stok' => 0,
+            'title' => 'Adidas GX380',
+            'meta_title' => 'Sepatu Adidas GX380',
+            'slug' => 'sepatu-olahraga-adidas-gx380',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elementum erat sit amet ipsum venenatis, ac malesuada ipsum vulputate. Donec luctus laoreet ultricies. Aliquam molestie dictum commodo. In vehicula augue vel diam mattis molestie. Donec sed nibh a lectus consequat venenatis. Aliquam pellentesque libero eget leo posuere consectetur. Nulla imperdiet.',
+            'price' => 425000.00,
+            'weight' => 1.00,
+            'stock' => 100,
+            'isReadyPublish' => 'ready'
+        ]);
+
+        Product::create([
+            'user_id' => $admin->id,
+            'title' => 'Adidas GX390',
+            'meta_title' => 'Sepatu Adidas GX390',
+            'slug' => 'sepatu-olahraga-adidas-gx390',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elementum erat sit amet ipsum venenatis, ac malesuada ipsum vulputate. Donec luctus laoreet ultricies. Aliquam molestie dictum commodo. In vehicula augue vel diam mattis molestie. Donec sed nibh a lectus consequat venenatis. Aliquam pellentesque libero eget leo posuere consectetur. Nulla imperdiet.',
+            'price' => 385000.00,
+            'weight' => 1.10,
+            'stock' => 50,
             'isReadyPublish' => 'not ready'
         ]);
     }

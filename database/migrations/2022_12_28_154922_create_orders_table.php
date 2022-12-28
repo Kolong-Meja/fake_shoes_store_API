@@ -13,18 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
-            $table->string('title');
-            $table->string('meta_title');
-            $table->string('slug');
-            $table->text('description');
-            $table->float('price');
-            $table->float('weight')->nullable();
-            $table->float('volume')->nullable();
-            $table->integer('stock');
-            $table->enum('isReadyPublish', ['ready', 'not ready']);
+            $table->float('sub_total');
+            $table->float('shipping');
+            $table->float('total');
+            $table->string('user_name');
+            $table->string('user_email');
+            $table->char('user_mobile', 13);
+            $table->string('address');
+            $table->string('city', 100);
+            $table->string('province', 100);
+            $table->string('country', 100);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
@@ -37,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('orders');
     }
 };

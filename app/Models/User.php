@@ -3,11 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Product;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Product;
 
 class User extends Authenticatable
 {
@@ -22,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'mobile',
         'role',
     ];
 
@@ -46,5 +48,9 @@ class User extends Authenticatable
 
     public function products() {
         return $this->hasMany(Product::class);
+    }
+
+    public function orders() {
+        return $this->hasMany(Order::class);
     }
 }
