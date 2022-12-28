@@ -42,10 +42,8 @@ class ProductControllerAPI extends Controller
      */
     public function store(Request $request)
     {
-        $except_data = ['id', 'created_at', 'updated_at'];
-
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer|max:1|min:1',
+            'user_id' => 'required|integer',
             'nama' => 'required|string', 
             'harga' => 'required|integer',
             'stok' => 'required|integer', 
@@ -63,7 +61,7 @@ class ProductControllerAPI extends Controller
             $response = [
                 'success' => true,
                 'message' => 'Create Shoes Data',
-                'data' => $products,
+                'data' => $products
             ];
             return response()->json($response, HttpFoundationResponse::HTTP_CREATED);
         } catch (QueryException $e) {
@@ -95,11 +93,10 @@ class ProductControllerAPI extends Controller
      */
     public function update(Request $request, $id)
     {
-        $except_data = ['id', 'created_at', 'updated_at'];
         $product = Product::find($id);
 
-        $validator = Validator::make($request->except($except_data), [
-            'user_id' => 'required|integer|max:1|min:1',
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|integer',
             'nama' => 'required|string', 
             'harga' => 'required|integer',
             'stok' => 'required|integer', 
@@ -112,7 +109,7 @@ class ProductControllerAPI extends Controller
             );
         }
 
-        $update_product = $product->update($request->except($except_data));
+        $update_product = $product->update($request->all());
 
         if ($update_product) {
             return response()->json([
