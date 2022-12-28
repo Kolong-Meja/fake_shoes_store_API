@@ -44,7 +44,8 @@ class ProductControllerAPI extends Controller
     {
         $except_data = ['id', 'created_at', 'updated_at'];
 
-        $validator = Validator::make($request->except($except_data), [
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|integer|max:1|min:1',
             'nama' => 'required|string', 
             'harga' => 'required|integer',
             'stok' => 'required|integer', 
@@ -58,7 +59,7 @@ class ProductControllerAPI extends Controller
         }
 
         try {
-            $products = Product::create($request->except($except_data));
+            $products = Product::create($request->all());
             $response = [
                 'success' => true,
                 'message' => 'Create Shoes Data',
@@ -66,9 +67,10 @@ class ProductControllerAPI extends Controller
             ];
             return response()->json($response, HttpFoundationResponse::HTTP_CREATED);
         } catch (QueryException $e) {
-            return response()->json([
-                'message' => "Failed! {$e->errorInfo}",
-            ]);
+            $error = [
+                'error' => $e->getMessage()
+            ];
+            return response()->json($error, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -93,10 +95,11 @@ class ProductControllerAPI extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $except_data = ['id', 'created_at', 'updated_at'];
+        $except_data = ['id', 'created_at', 'updated_at'];
         $product = Product::find($id);
 
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->except($except_data), [
+            'user_id' => 'required|integer|max:1|min:1',
             'nama' => 'required|string', 
             'harga' => 'required|integer',
             'stok' => 'required|integer', 
@@ -109,7 +112,7 @@ class ProductControllerAPI extends Controller
             );
         }
 
-        $update_product = $product->update($request->all());
+        $update_product = $product->update($request->except($except_data));
 
         if ($update_product) {
             return response()->json([
