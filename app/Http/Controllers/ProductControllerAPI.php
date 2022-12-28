@@ -18,12 +18,20 @@ class ProductControllerAPI extends Controller
      */
     public function index()
     {
-        $products = Product::select('*')->latest('created_at')->paginate(5);
-        $response = [
-            'message' => 'List of Shoes Data',
-            'data' => $products,
-        ];
-        return response()->json($response, HttpFoundationResponse::HTTP_OK);
+        try {
+            $products = Product::select('*')->get();
+            $response = [
+                'success' => true,
+                'message' => 'List Shoes Data',
+                'data' => $products
+            ];
+            return response()->json($response, HttpFoundationResponse::HTTP_OK);     
+        } catch (QueryException $e) {
+            $error = [
+                'error' => $e->getMessage()
+            ];
+            return response()->json($error, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -52,10 +60,10 @@ class ProductControllerAPI extends Controller
         try {
             $products = Product::create($request->except($except_data));
             $response = [
+                'success' => true,
                 'message' => 'Create Shoes Data',
                 'data' => $products,
             ];
-
             return response()->json($response, HttpFoundationResponse::HTTP_CREATED);
         } catch (QueryException $e) {
             return response()->json([
