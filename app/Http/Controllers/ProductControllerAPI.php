@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Facade\FlareClient\Http\Response;
+use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class ProductControllerAPI extends Controller
 {
@@ -17,9 +17,21 @@ class ProductControllerAPI extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        /* 
+        Menggunakan metode try dan catch 
+        untuk mengendalikan error yang akan terjadi saat 
+        eksekusi program di Postman saat pengetesan API 
+        */
         try {
+            // membuat variable $products untuk mengambil semua data sepatu
             $products = Product::select('*')->get();
+
+            /*
+            membuat variable $response dengan 
+            tipe data Array untuk mengembalikan 
+            respon khusus saat testing API
+            */
             $response = [
                 'success' => true,
                 'message' => 'List Shoes Data',
@@ -27,6 +39,10 @@ class ProductControllerAPI extends Controller
             ];
             return response()->json($response, HttpFoundationResponse::HTTP_OK);     
         } catch (QueryException $e) {
+            /* 
+            membuat variable $error dengan tipe data Array 
+            untuk mengembalikan respon khusus pada saat testing API 
+            */
             $error = [
                 'error' => $e->getMessage()
             ];
@@ -42,6 +58,10 @@ class ProductControllerAPI extends Controller
      */
     public function store(Request $request)
     {
+        /* membuat variable $validator 
+        untuk memvalidasi data-data penting yang 
+        perlu di input saat ingin membuat produk sepatu baru 
+        */
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|integer',
             'nama' => 'required|string', 
@@ -50,6 +70,10 @@ class ProductControllerAPI extends Controller
             'isReadyPublish' => 'required'
         ]);
 
+        /* if condition berguna untuk mengetes, 
+        apabila validasi gagal maka API akan mengembalikan error 
+        berupa HTTP tidak dapa memproses entitas yang telah terinput 
+        */
         if ($validator->fails()) {
             return response()->json(
                 $validator->errors(), HttpFoundationResponse::HTTP_UNPROCESSABLE_ENTITY
@@ -57,11 +81,11 @@ class ProductControllerAPI extends Controller
         }
 
         try {
-            $products = Product::create($request->all());
+            $product = Product::create($request->all());
             $response = [
                 'success' => true,
                 'message' => 'Create Shoes Data',
-                'data' => $products
+                'data' => $product
             ];
             return response()->json($response, HttpFoundationResponse::HTTP_CREATED);
         } catch (QueryException $e) {
@@ -80,8 +104,12 @@ class ProductControllerAPI extends Controller
      */
     public function show($id)
     {
-        $products = Product::select('*')->find($id);
-        return response()->json($products, 200);
+        /* membuat variable $products yang 
+        berisikan syntax untuk mencari produk 
+        berdasarkan id tertentu 
+        */
+        $product = Product::select('*')->find($id); // find method berfungsi untuk mencari data berdasarkan id
+        return response()->json($product, 200);
     }
 
     /**
@@ -136,7 +164,7 @@ class ProductControllerAPI extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id)->delete();
+        $product = Product::find($id)->delete(); // delete method berfungsi untuk menghapus 1 data produk berdasarkan id
         return response()->json([
             'success' => true,
             'message' => 'Shoes Data successfully deleted!',
