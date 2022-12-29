@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Product;
+use App\Models\OrderProduct;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +23,7 @@ class Order extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function products() {
-        return $this->belongsToMany(Product::class, 'order_products', 'order_id', 'product_id');
+    public function order_products() {
+        return $this->hasMany(OrderProduct::class);
     }
 }

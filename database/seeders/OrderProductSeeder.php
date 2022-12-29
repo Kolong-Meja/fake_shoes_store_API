@@ -15,29 +15,29 @@ class OrderProductSeeder extends Seeder
      */
     public function run()
     {
-        OrderProduct::create([
-            'product_id' => 1,
-            'order_id' => 1
-        ]);
+        // OrderProduct::create([
+        //     'product_id' => 1,
+        //     'order_id' => 1
+        // ]);
 
-        OrderProduct::create([
-            'product_id' => 2,
-            'order_id' => 1
-        ]);
+        // OrderProduct::create([
+        //     'product_id' => 2,
+        //     'order_id' => 1
+        // ]);
 
-        OrderProduct::create([
-            'product_id' => 1,
-            'order_id' => 2
-        ]);
+        // OrderProduct::create([
+        //     'product_id' => 1,
+        //     'order_id' => 2
+        // ]);
 
-        OrderProduct::create([
-            'product_id' => 3,
-            'order_id' => 2
-        ]);
+        // OrderProduct::create([
+        //     'product_id' => 3,
+        //     'order_id' => 2
+        // ]);
 
-        OrderProduct::create([
-            'product_id' => 4,
-            'order_id' => 3
-        ]);
+        // OrderProduct::create([
+        //     'product_id' => 4,
+        //     'order_id' => 3
+        // ]);
     }
 }

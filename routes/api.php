@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserControllerAPI;
 use App\Http\Controllers\ProductControllerAPI;
+use App\Http\Controllers\OrderControllerAPI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +32,11 @@ Route::post('/shoes', [ProductControllerAPI::class, 'store'])->name('shoes.store
 Route::get('/shoes/{id}', [ProductControllerAPI::class, 'show'])->name('shoes.show');
 Route::put('/shoes/edit/{id}', [ProductControllerAPI::class, 'update'])->name('shoes.update');
 Route::delete('/shoes/{id}', [ProductControllerAPI::class, 'destroy'])->name('shoes.delete');
+
+Route::get('/order', [OrderControllerAPI::class, 'index'])->name('order.index');
+Route::post('/order', [OrderControllerAPI::class, 'store'])->name('order.store');
+Route::get('/order/{id}', [OrderControllerAPI::class, 'show'])->name('order.show');
+Route::put('/order/edit/{id}', [OrderControllerAPI::class, 'update'])->name('order.update');
+Route::delete('/order/{id}', [OrderControllerAPI::class, 'destroy'])->name('order.delete');
 
 
