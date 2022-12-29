@@ -13,7 +13,7 @@ class OrderProductControllerAPI extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**
