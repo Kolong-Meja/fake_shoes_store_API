@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Facade\FlareClient\Http\Response;
+// use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
@@ -91,7 +91,7 @@ class ProductControllerAPI extends Controller
             $product = Product::create($request->all());
             $response = [
                 'success' => true,
-                'message' => 'Create Shoes Data',
+                'message' => 'Shoes data has been successfully created!',
                 'data' => $product
             ];
             return response()->json($response, HttpFoundationResponse::HTTP_CREATED);
@@ -99,7 +99,7 @@ class ProductControllerAPI extends Controller
             $error = [
                 'error' => $e->getMessage()
             ];
-            return response()->json($error, Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json($error, HttpFoundationResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -116,7 +116,7 @@ class ProductControllerAPI extends Controller
         berdasarkan id tertentu 
         */
         $product = Product::select('*')->with('users')->find($id); // find method berfungsi untuk mencari data berdasarkan id
-        return response()->json($product, 200);
+        return response()->json($product, HttpFoundationResponse::HTTP_OK);
     }
 
     /**
@@ -131,18 +131,18 @@ class ProductControllerAPI extends Controller
         $product = Product::find($id);
 
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer|min:1|max:2',
-            'title' => 'required|string|max:255',
-            'meta_title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
-            'description' => 'required',
-            'price' => 'required|numeric|between:0.00,999999.99',
+            'user_id' => 'nullable|integer|min:1|max:2',
+            'title' => 'nullable|string|max:255',
+            'meta_title' => 'nullable|string|max:255',
+            'slug' => 'nullable|string|max:255',
+            'description' => 'nullable',
+            'price' => 'nullable|numeric|between:0.00,999999.99',
             'weight' => 'nullable|numeric|between:0.00,99.99',
             'volume' => 'nullable|numeric|between:0.00,99.99',
-            'size' => 'required|numeric|between:35,47',
-            'color' => 'required|string|max:50',
-            'stock' => 'required|integer|max:500',
-            'isReadyPublish' => 'required'
+            'size' => 'nullable|numeric|between:35,47',
+            'color' => 'nullable|string|max:50',
+            'stock' => 'nullable|integer|max:500',
+            'isReadyPublish' => 'nullable'
         ]);
 
         if ($validator->fails()) {

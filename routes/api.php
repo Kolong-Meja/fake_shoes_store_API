@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserControllerAPI;
 use App\Http\Controllers\ProductControllerAPI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +20,16 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::get('/user', [UserControllerAPI::class, 'index'])->name('user.index');
+Route::post('/user', [UserControllerAPI::class, 'store'])->name('user.store');
+Route::get('/user/{id}', [UserControllerAPI::class, 'show'])->name('user.show');
+Route::put('/user/edit/{id}', [UserControllerAPI::class, 'update'])->name('user.update');
+Route::delete('/user/{id}', [UserControllerAPI::class, 'destroy'])->name('user.delete');
+
 Route::get('/shoes', [ProductControllerAPI::class, 'index'])->name('shoes.index');
 Route::post('/shoes', [ProductControllerAPI::class, 'store'])->name('shoes.store');
 Route::get('/shoes/{id}', [ProductControllerAPI::class, 'show'])->name('shoes.show');
 Route::put('/shoes/edit/{id}', [ProductControllerAPI::class, 'update'])->name('shoes.update');
 Route::delete('/shoes/{id}', [ProductControllerAPI::class, 'destroy'])->name('shoes.delete');
+
+
