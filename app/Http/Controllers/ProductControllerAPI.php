@@ -25,7 +25,7 @@ class ProductControllerAPI extends Controller
         */
         try {
             // membuat variable $products untuk mengambil semua data sepatu
-            $products = Product::select('*')->get();
+            $products = Product::with('users')->get();
 
             /*
             membuat variable $response dengan 
@@ -34,7 +34,7 @@ class ProductControllerAPI extends Controller
             */
             $response = [
                 'success' => true,
-                'message' => 'List Shoes Data',
+                'message' => 'Shoes Data',
                 'data' => $products
             ];
             return response()->json($response, HttpFoundationResponse::HTTP_OK);     
@@ -63,10 +63,17 @@ class ProductControllerAPI extends Controller
         perlu di input saat ingin membuat produk sepatu baru 
         */
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer',
-            'nama' => 'required|string', 
-            'harga' => 'required|integer',
-            'stok' => 'required|integer', 
+            'user_id' => 'required|integer|min:1|max:2',
+            'title' => 'required|string|max:255',
+            'meta_title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'description' => 'required',
+            'price' => 'required|numeric|between:0.00,999999.99',
+            'weight' => 'nullable|numeric|between:0.00,99.99',
+            'volume' => 'nullable|numeric|between:0.00,99.99',
+            'size' => 'required|numeric|between:35,47',
+            'color' => 'required|string|max:50',
+            'stock' => 'required|integer|max:500',
             'isReadyPublish' => 'required'
         ]);
 
@@ -108,7 +115,7 @@ class ProductControllerAPI extends Controller
         berisikan syntax untuk mencari produk 
         berdasarkan id tertentu 
         */
-        $product = Product::select('*')->find($id); // find method berfungsi untuk mencari data berdasarkan id
+        $product = Product::select('*')->with('users')->find($id); // find method berfungsi untuk mencari data berdasarkan id
         return response()->json($product, 200);
     }
 
@@ -124,10 +131,17 @@ class ProductControllerAPI extends Controller
         $product = Product::find($id);
 
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer',
-            'nama' => 'required|string', 
-            'harga' => 'required|integer',
-            'stok' => 'required|integer', 
+            'user_id' => 'required|integer|min:1|max:2',
+            'title' => 'required|string|max:255',
+            'meta_title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'description' => 'required',
+            'price' => 'required|numeric|between:0.00,999999.99',
+            'weight' => 'nullable|numeric|between:0.00,99.99',
+            'volume' => 'nullable|numeric|between:0.00,99.99',
+            'size' => 'required|numeric|between:35,47',
+            'color' => 'required|string|max:50',
+            'stock' => 'required|integer|max:500',
             'isReadyPublish' => 'required'
         ]);
 

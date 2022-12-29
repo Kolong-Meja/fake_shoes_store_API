@@ -14,7 +14,8 @@ class Product extends Model
     protected $fillable = [
         "user_id", "title", "meta_title",
         "slug", "description", "price", 
-        "weight", "volume", "stock", "isReadyPublish"
+        "weight", "volume", "size", 
+        "color", "stock", "isReadyPublish"
     ];
 
     public function users() {

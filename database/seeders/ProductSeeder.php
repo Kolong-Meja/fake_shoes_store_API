@@ -26,6 +26,8 @@ class ProductSeeder extends Seeder
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elementum erat sit amet ipsum venenatis, ac malesuada ipsum vulputate. Donec luctus laoreet ultricies. Aliquam molestie dictum commodo. In vehicula augue vel diam mattis molestie. Donec sed nibh a lectus consequat venenatis. Aliquam pellentesque libero eget leo posuere consectetur. Nulla imperdiet.',
             'price' => 325000.00,
             'weight' => 1.00,
+            'size' => 42,
+            'color' => 'black & white',
             'stock' => 100,
             'isReadyPublish' => 'ready'
         ]);
@@ -38,6 +40,8 @@ class ProductSeeder extends Seeder
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elementum erat sit amet ipsum venenatis, ac malesuada ipsum vulputate. Donec luctus laoreet ultricies. Aliquam molestie dictum commodo. In vehicula augue vel diam mattis molestie. Donec sed nibh a lectus consequat venenatis. Aliquam pellentesque libero eget leo posuere consectetur. Nulla imperdiet.',
             'price' => 355000.00,
             'weight' => 1.20,
+            'size' => 42,
+            'color' => 'black & blue',
             'stock' => 50,
             'isReadyPublish' => 'ready'
         ]);
@@ -50,6 +54,8 @@ class ProductSeeder extends Seeder
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elementum erat sit amet ipsum venenatis, ac malesuada ipsum vulputate. Donec luctus laoreet ultricies. Aliquam molestie dictum commodo. In vehicula augue vel diam mattis molestie. Donec sed nibh a lectus consequat venenatis. Aliquam pellentesque libero eget leo posuere consectetur. Nulla imperdiet.',
             'price' => 375000.00,
             'weight' => 1.10,
+            'size' => 43,
+            'color' => 'white & pink',
             'stock' => 50,
             'isReadyPublish' => 'ready'
         ]);
@@ -62,6 +68,8 @@ class ProductSeeder extends Seeder
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elementum erat sit amet ipsum venenatis, ac malesuada ipsum vulputate. Donec luctus laoreet ultricies. Aliquam molestie dictum commodo. In vehicula augue vel diam mattis molestie. Donec sed nibh a lectus consequat venenatis. Aliquam pellentesque libero eget leo posuere consectetur. Nulla imperdiet.',
             'price' => 425000.00,
             'weight' => 1.00,
+            'size' => 42,
+            'color' => 'black & pink',
             'stock' => 100,
             'isReadyPublish' => 'ready'
         ]);
@@ -74,6 +82,8 @@ class ProductSeeder extends Seeder
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elementum erat sit amet ipsum venenatis, ac malesuada ipsum vulputate. Donec luctus laoreet ultricies. Aliquam molestie dictum commodo. In vehicula augue vel diam mattis molestie. Donec sed nibh a lectus consequat venenatis. Aliquam pellentesque libero eget leo posuere consectetur. Nulla imperdiet.',
             'price' => 385000.00,
             'weight' => 1.10,
+            'size' => 44,
+            'color' => 'white & red',
             'stock' => 50,
             'isReadyPublish' => 'not ready'
         ]);

@@ -23,6 +23,8 @@ return new class extends Migration
             $table->float('price');
             $table->float('weight')->nullable();
             $table->float('volume')->nullable();
+            $table->integer('size');
+            $table->string('color', 50);
             $table->integer('stock');
             $table->enum('isReadyPublish', ['ready', 'not ready']);
             $table->timestamps();
