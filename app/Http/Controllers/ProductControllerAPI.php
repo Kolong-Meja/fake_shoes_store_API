@@ -25,7 +25,7 @@ class ProductControllerAPI extends Controller
         */
         try {
             // membuat variable $products untuk mengambil semua data sepatu
-            $products = Product::with('users')->get();
+            $products = Product::with('users')->with('categories')->get();
 
             /*
             membuat variable $response dengan 

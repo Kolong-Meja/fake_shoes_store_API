@@ -48,7 +48,7 @@ class CategoryControllerAPI extends Controller
         }
 
         try {
-            $category = Category::creta($request->all());
+            $category = Category::create($request->all());
             $response = [
                 'success' => true,
                 'message' => 'Category data has been successfully created',
