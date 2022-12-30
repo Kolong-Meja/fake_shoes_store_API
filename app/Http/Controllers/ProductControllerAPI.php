@@ -161,7 +161,7 @@ class ProductControllerAPI extends Controller
         if ($update_product) {
             $response = [
                 'success' => true,
-                'message' => 'Update Shoes Data',
+                'message' => "Shoes {$id} data has been successfully updated",
                 'data' => $product
             ];
             return response()->json($response, HttpFoundationResponse::HTTP_OK);
@@ -170,8 +170,8 @@ class ProductControllerAPI extends Controller
         else {
             $response = [
                 'success' => true,
-                'message' => "Update Shoes {$id} Data",
-                'data' => $product
+                'message' => "Shoes {$id} data failed to updated",
+                'data' => null
             ];
             return response()->json($response, HttpFoundationResponse::HTTP_INTERNAL_SERVER_ERROR);
         }

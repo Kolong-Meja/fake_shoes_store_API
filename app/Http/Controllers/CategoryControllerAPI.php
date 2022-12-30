@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+
 
 class CategoryControllerAPI extends Controller
 {
@@ -14,6 +19,12 @@ class CategoryControllerAPI extends Controller
     public function index()
     {
         $categories = Category::select('*')->with('products')->get();
+        $response = [
+            'success' => true,
+            'message' => 'Category Data',
+            'data' => $categories
+        ];
+        return response()->json($response, HttpFoundationResponse::HTTP_OK);
     }
 
     /**
@@ -24,7 +35,32 @@ class CategoryControllerAPI extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'meta_title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $validator->errors(), HttpFoundationResponse::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        try {
+            $category = Category::creta($request->all());
+            $response = [
+                'success' => true,
+                'message' => 'Category data has been successfully created',
+                'data' => $category
+            ];
+            return response()->json($response, HttpFoundationResponse::HTTP_CREATED);
+        } catch (QueryException $e) {
+            $error = [
+                'error' => $e->getMessage()
+            ];
+            return response()->json($error, HttpFoundationResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -35,7 +71,13 @@ class CategoryControllerAPI extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::select('*')->with('products')->find($id);
+        $response = [
+            'success' => true,
+            'message' => "Category {$id} Data",
+            'data' => $category
+        ];
+        return response()->json($response, HttpFoundationResponse::HTTP_OK);
     }
 
     /**
@@ -47,7 +89,38 @@ class CategoryControllerAPI extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $validator = Validator::make($request->all(), [
+            'title' => 'nullable|string|max:255',
+            'meta_title' => 'nullable|string|max:255',
+            'slug' => 'nullable|string|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $validator->errors(), HttpFoundationResponse::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        $update_category = $category->update($request->all());
+
+        if ($update_category) {
+            $response = [
+                'success' => true,
+                'message' => "Category {$id} data has been successfully updated",
+                'data' => $category
+            ];
+            return response()->json($response, HttpFoundationResponse::HTTP_OK);
+        }
+
+        else {
+            $response = [
+                'success' => false,
+                'message' => "Category {$id} data failed to updated",
+                'data' => null
+            ];
+            return response()->json($response, HttpFoundationResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -58,6 +131,12 @@ class CategoryControllerAPI extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id)->delete();
+        $response = [
+            'success' => true,
+            'message' => "Category {$id} data has been successfully deleted",
+            'data' => $category
+        ];
+        return response()->json($response, HttpFoundationResponse::HTTP_OK);
     }
 }
