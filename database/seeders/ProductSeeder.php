@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 
@@ -16,10 +17,12 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {   
-        $admin = User::select('id', 'role')->where('role', 'admin')->orWhere('id', 1)->firstOrFail();
+        $admin = User::select('id', 'role')->where('role', 'admin')->orWhere('id', 1)->first();
+        $category = Category::select('id', 'title')->where('title', 'Olahraga')->orWhere('id', 1)->first();
 
         Product::create([
             'user_id' => $admin->id,
+            'category_id' => $category->id,
             'title' => 'Adidas GX350',
             'meta_title' => 'Sepatu Adidas GX350',
             'slug' => 'sepatu-olahraga-adidas-gx350',
@@ -34,6 +37,7 @@ class ProductSeeder extends Seeder
 
         Product::create([
             'user_id' => $admin->id,
+            'category_id' => $category->id,
             'title' => 'Adidas GX360',
             'meta_title' => 'Sepatu Adidas GX360',
             'slug' => 'sepatu-olahraga-adidas-gx360',
@@ -48,6 +52,7 @@ class ProductSeeder extends Seeder
 
         Product::create([
             'user_id' => $admin->id,
+            'category_id' => $category->id,
             'title' => 'Adidas GX370',
             'meta_title' => 'Sepatu Adidas GX370',
             'slug' => 'sepatu-olahraga-adidas-gx370',
@@ -62,6 +67,7 @@ class ProductSeeder extends Seeder
 
         Product::create([
             'user_id' => $admin->id,
+            'category_id' => $category->id,
             'title' => 'Adidas GX380',
             'meta_title' => 'Sepatu Adidas GX380',
             'slug' => 'sepatu-olahraga-adidas-gx380',
@@ -76,6 +82,7 @@ class ProductSeeder extends Seeder
 
         Product::create([
             'user_id' => $admin->id,
+            'category_id' => $category->id,
             'title' => 'Adidas GX390',
             'meta_title' => 'Sepatu Adidas GX390',
             'slug' => 'sepatu-olahraga-adidas-gx390',

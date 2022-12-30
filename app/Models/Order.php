@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\User;
-use App\Models\Product;
-use App\Models\OrderProduct;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,4 +32,5 @@ class Order extends Model
     public function setTotalAttribute() {
         $this->attributes['total'] = $this->sub_total + $this->shipping;
     }
+          
 }

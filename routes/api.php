@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserControllerAPI;
 use App\Http\Controllers\ProductControllerAPI;
+use App\Http\Controllers\CategoryControllerAPI;
 use App\Http\Controllers\OrderControllerAPI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,12 @@ Route::post('/shoes', [ProductControllerAPI::class, 'store'])->name('shoes.store
 Route::get('/shoes/{id}', [ProductControllerAPI::class, 'show'])->name('shoes.show');
 Route::put('/shoes/edit/{id}', [ProductControllerAPI::class, 'update'])->name('shoes.update');
 Route::delete('/shoes/{id}', [ProductControllerAPI::class, 'destroy'])->name('shoes.delete');
+
+Route::get('/category', [CategoryControllerAPI::class, 'index'])->name('category.index');
+Route::post('/category', [CategoryControllerAPI::class, 'store'])->name('category.store');
+Route::get('/category/{id}', [CategoryControllerAPI::class, 'show'])->name('category.show');
+Route::put('/category/edit/{id}', [CategoryControllerAPI::class, 'update'])->name('category.update');
+Route::delete('/category/{id}', [CategoryControllerAPI::class, 'destroy'])->name('category.delete');
 
 Route::get('/order', [OrderControllerAPI::class, 'index'])->name('order.index');
 Route::post('/order', [OrderControllerAPI::class, 'store'])->name('order.store');

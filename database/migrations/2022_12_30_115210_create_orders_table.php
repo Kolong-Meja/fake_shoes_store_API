@@ -30,15 +30,8 @@ return new class extends Migration
             $table->string('province', 100);
             $table->string('country', 100);
             $table->timestamps();
-            $table->foreign('user_id')
-            ->references('id')
-            ->on('users')
-            ->onDelete('cascade');
-            $table->foreign('product_id')
-            ->references('id')
-            ->on('products')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
