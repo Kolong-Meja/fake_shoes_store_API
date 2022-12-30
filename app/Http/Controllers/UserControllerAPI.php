@@ -81,7 +81,12 @@ class UserControllerAPI extends Controller
     public function show($id)
     {
         $user = User::select('*')->find($id);
-        return response()->json($user, HttpFoundationResponse::HTTP_OK);
+        $response = [
+            'success' => true,
+            'message' => "User {$id} Data",
+            'data' => $user
+        ];
+        return response()->json($response, HttpFoundationResponse::HTTP_OK);
     }
 
     /**
@@ -114,7 +119,7 @@ class UserControllerAPI extends Controller
         if ($update_user) {
             $response = [
                 'success' => true,
-                'message' => 'User data has been successfully updated',
+                'message' => "User {$id} data has been successfully updated",
                 'data' => $user
             ];
             return response()->json($response, HttpFoundationResponse::HTTP_OK);
@@ -123,7 +128,7 @@ class UserControllerAPI extends Controller
         else {
             $response = [
                 'success' => false,
-                'message' => 'Failed to update user data',
+                'message' => "Failed to update user {$id} data",
                 'data' => null
             ];
             return response()->json($response, HttpFoundationResponse::HTTP_INTERNAL_SERVER_ERROR);
@@ -141,7 +146,7 @@ class UserControllerAPI extends Controller
         $user = User::find($id)->delete();
         $response = [
             'success' => true,
-            'message' => 'User Data successfully deleted!',
+            'message' => "User {$id} Data successfully deleted!",
             'data' => $user
         ];
         return response()->json($response, HttpFoundationResponse::HTTP_OK);

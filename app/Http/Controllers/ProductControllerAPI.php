@@ -115,8 +115,13 @@ class ProductControllerAPI extends Controller
         berisikan syntax untuk mencari produk 
         berdasarkan id tertentu 
         */
-        $product = Product::select('*')->with('users')->find($id); // find method berfungsi untuk mencari data berdasarkan id
-        return response()->json($product, HttpFoundationResponse::HTTP_OK);
+        $product = Product::select('*')->with('users')->find($id);// find method berfungsi untuk mencari data berdasarkan id
+        $response = [
+            'success' => true,
+            'message' => "Order {$id} Data",
+            'data' => $product
+        ];
+        return response()->json($response, HttpFoundationResponse::HTTP_OK);
     }
 
     /**
@@ -154,19 +159,21 @@ class ProductControllerAPI extends Controller
         $update_product = $product->update($request->all());
 
         if ($update_product) {
-            return response()->json([
+            $response = [
                 'success' => true,
                 'message' => 'Update Shoes Data',
                 'data' => $product
-            ]);
+            ];
+            return response()->json($response, HttpFoundationResponse::HTTP_OK);
         }
 
         else {
-            return response()->json([
-                'success' => false,
-                'message' => "Failed! {$e->errorInfo}",
-                'data' => null
-            ]);
+            $response = [
+                'success' => true,
+                'message' => "Update Shoes {$id} Data",
+                'data' => $product
+            ];
+            return response()->json($response, HttpFoundationResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -179,10 +186,11 @@ class ProductControllerAPI extends Controller
     public function destroy($id)
     {
         $product = Product::find($id)->delete(); // delete method berfungsi untuk menghapus 1 data produk berdasarkan id
-        return response()->json([
+        $response = [
             'success' => true,
-            'message' => 'Shoes Data successfully deleted!',
-            'data' => $product
-        ]);
+            'message' => "Shoes {$id} Data successfully deleted!",
+            'data' => $product 
+        ];
+        return response()->json($response, HttpFoundationResponse::HTTP_OK);
     }
 }

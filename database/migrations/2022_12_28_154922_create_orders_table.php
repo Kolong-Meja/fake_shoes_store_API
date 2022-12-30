@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('product_id')->unsigned();
+            $table->float('price');
+            $table->integer('quantity');
             $table->float('sub_total');
             $table->float('shipping');
             $table->float('total');
@@ -27,7 +30,15 @@ return new class extends Migration
             $table->string('province', 100);
             $table->string('country', 100);
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade');
+            $table->foreign('product_id')
+            ->references('id')
+            ->on('products')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 

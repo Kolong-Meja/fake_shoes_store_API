@@ -23,7 +23,7 @@ class Product extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function order_products() {
-        return $this->hasMany(OrderProduct::class);
+    public function orders() {
+        return $this->hasMany(Order::class);
     }
 }

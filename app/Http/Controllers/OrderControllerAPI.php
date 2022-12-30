@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class OrderControllerAPI extends Controller
 {
@@ -14,7 +17,7 @@ class OrderControllerAPI extends Controller
      */
     public function index()
     {
-        $orders = Order::select('*')->products()->get();
+        $orders = Order::select('*')->with('users')->with('products')->get();
         $response = [
             'success' => true,
             'message' => 'Orders Data',
@@ -33,8 +36,9 @@ class OrderControllerAPI extends Controller
     {
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|integer|min:3',
+            'product_id' => 'required|integer|min:1',
             'price' => 'required|numeric|between:0.00,999999.00',
-            'quantity' => 'required|numeric|between:0,10',
+            'quantity' => 'required|numeric|between:0,100',
             'sub_total' => 'required|numeric|between:0.00,9999999.00',
             'shipping' => 'required|numeric|between:0.00,999999.00',
             'total' => 'required|numeric|between:0.00,9999999.00',
@@ -77,7 +81,13 @@ class OrderControllerAPI extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::select('*')->with('users')->with('products')->find($id);
+        $response = [
+            'success' => true,
+            'message' => "Order {$id} data",
+            'data' => $order
+        ];
+        return response()->json($order, HttpFoundationResponse::HTTP_OK);
     }
 
     /**
@@ -89,7 +99,50 @@ class OrderControllerAPI extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'nullable|integer|min:3',
+            'product_id' => 'nullable|integer|min:1',
+            'price' => 'nullable|numeric|between:0.00,999999.00',
+            'quantity' => 'nullable|numeric|between:0,100',
+            'sub_total' => 'nullable|numeric|between:0.00,9999999.00',
+            'shipping' => 'nullable|numeric|between:0.00,999999.00',
+            'total' => 'nullable|numeric|between:0.00,9999999.00',
+            'user_name' => 'nullable|string|max:255',
+            'user_email' => 'nullable|string|max:255',
+            'user_mobile' => 'nullable|numeric|min:13',
+            'address' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:100',
+            'province' => 'nullable|string|max:100',
+            'country' => 'nullable|string|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $validator->errors(), HttpFoundationResponse::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        $update_order = $order->update($request->all());
+
+        if ($update_order) {
+            $response = [
+                'success' => true,
+                'message' => "Order {$id} data has been successfully updated",
+                'data' => $order
+            ];
+            return response()->json($response, HttpFoundationResponse::HTTP_OK);
+        }
+
+        else {
+            $response = [
+                'success' => false,
+                'message' => "Failed! {$e->errorInfo}",
+                'data' => null
+            ];
+            return response()->json($response, HttpFoundationResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -100,6 +153,12 @@ class OrderControllerAPI extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id)->delete();
+        $response = [
+            'success' => true,
+            'message' => "Order {$id} data has been successfully deleted",
+            'data' => $order
+        ];
+        return response()->json($response, HttpFoundationResponse::HTTP_OK);
     }
 }
